@@ -5,7 +5,7 @@ In this repo is a single [`index.html`](./index.html) file with everything you w
 
 Your goal is to make a working web page using React to hit the provided API endpoint and display the result.
 
-Please copy this file into a new repo and complete the following tasks.
+Please copy this file into a new repo (do not fork it) and complete the following tasks.
 
 ## Tasks
 - Using at least two function components (not including the one provided), create a form with React that will allow a user to enter their name and click a button to submit the form.
