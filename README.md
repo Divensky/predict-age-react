@@ -1,13 +1,11 @@
-# Cloverhound Software Developer Interview Challenge
+# Simple React App
 
 ## Overview
-In this repo is a single [`index.html`](./index.html) file with everything you will need.
+This repo is a completed [Cloverhound Software Developer Interview Challenge](https://github.com/Cloverhound/simple_react_app).
 
-Your goal is to make a working web page using React to hit the provided API endpoint and display the result.
+It is a working web page using React to get the data from an API endpoint and display the result.
 
-Please copy this file into a new repo (do not fork it) and complete the following tasks.
-
-## Tasks
+## Tasks accomplished:
 - Using at least two function components (not including the one provided), create a form with React that will allow a user to enter their name and click a button to submit the form.
 - When the form is submitted, use jQuery to make a network request to Agify.io (find the URL structure [here](https://agify.io/documentation#basic-usage)) with the name the user entered.
 - Parse the response from the endpoint and display the predicted age of the user.
