@@ -2,18 +2,84 @@
 <html>
   <head>
     <title>React Test</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      const { useState } = React;
+      const { useState, useRef } = React;
+
+      const URL = 'https://api.agify.io';
+
+      const nameStore = {};
+
+      const fetchData = (url) => {
+        return new Promise((resolve, reject) => {
+          $.get(url, (data) => resolve(data)).fail((er) => reject(er));
+        });
+      };
+
+      const fetchByName = async (name, apiUrl = URL) => {
+        const url = `${apiUrl}?name=${name}`;
+        return await fetchData(url);
+      };
+
+      const getAge = async (name) => {
+        if (nameStore[name.toLowerCase()]) {
+          return nameStore[name.toLowerCase()].age;
+        }
+        const data = await fetchByName(name);
+        const age = data.age ? data.age : 0;
+        nameStore[name.toLowerCase()] = { age };
+        return age;
+      };
+
+      const Form = ({ handleSubmit }) => {
+        const inputRef = useRef();
+        return (
+          <form onSubmit={(ev) => handleSubmit(ev, inputRef.current.value)}>
+            <label>
+              Enter your name
+              <input name="nameInput" id="nameInput" ref={inputRef} />
+            </label>
+            <button>Submit</button>
+          </form>
+        );
+      };
+
+      const AgeDisplay = ({ age }) => {
+        return <div>Your predicted age is {age} </div>;
+      };
+
       const App = () => {
-        return (<div>Implement me!</div>);
-      }
+        const [age, setAge] = useState(0);
+
+        const handleSubmit = async (ev, name) => {
+          ev.preventDefault();
+          const age = await getAge(name);
+          setAge(age);
+        };
+
+        return (
+          <div>
+            <Form handleSubmit={handleSubmit} />
+            {age !== 0 && <AgeDisplay age={age} />}
+          </div>
+        );
+      };
 
       ReactDOM.render(<App />, document.querySelector('#root'));
     </script>
