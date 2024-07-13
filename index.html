@@ -52,7 +52,7 @@
         return (
           <form onSubmit={(ev) => handleSubmit(ev, inputRef.current.value)}>
             <label>
-              Enter your name
+              Please enter a name: <pre></pre>
               <input name="nameInput" id="nameInput" ref={inputRef} />
             </label>
             <button>Submit</button>
@@ -61,7 +61,7 @@
       };
 
       const AgeDisplay = ({ age }) => {
-        return <div>Your predicted age is {age} </div>;
+        return <div>The estimated age is {age} </div>;
       };
 
       const App = () => {
@@ -75,6 +75,7 @@
 
         return (
           <div>
+            <h1>Estimate the age based on a first name</h1>
             <Form handleSubmit={handleSubmit} />
             {age !== 0 && <AgeDisplay age={age} />}
           </div>
